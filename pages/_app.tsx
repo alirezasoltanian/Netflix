@@ -7,9 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <div style={{WebkitTapHighlightColor: 'transparent'}}>
       <Head>
         <title>Netflix | NEXTjs</title>
-        <meta 
-        name="apple-mobile-web-app-status-bar-style"
-        content="black-translucent" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /> 
         <meta name="viewport" content="initial-scale=1, viewport-fit=cover, user-scalable=no" />
         <link
           rel="apple-touch-startup-image"
