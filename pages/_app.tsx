@@ -4,10 +4,13 @@ import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <div style={{WebkitTapHighlightColor: 'transparent'}}>
       <Head>
         <title>Netflix | NEXTjs</title>
-        
+        <meta 
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent" />
+        <meta name="viewport" content="initial-scale=1, viewport-fit=cover, user-scalable=no" />
         <link
           rel="apple-touch-startup-image"
           href="/apple-splash-dark-2048-2732.jpeg"
@@ -163,7 +166,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <Component {...pageProps} />
-    </>
+    </div>
   );
 }
 
