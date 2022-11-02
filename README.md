@@ -32,3 +32,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+<!-- npx pwa-asset-generator public/icon.png public --dark-mode --background dimgrey --splash-only --type jpeg --quality 80 --index public/index.html -->
+<!-- npx pwa-asset-generator public/icon.png public -m public/icon.png --padding "calc(50vh - 25%)" -b "linear-gradient(135deg, #21b9e4, #ff0098)" --quality 100 --index public/index.html --favicon -->

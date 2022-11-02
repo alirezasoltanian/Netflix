@@ -159,7 +159,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           media="(prefers-color-scheme: dark) and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
         />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="manifest" href="/favicon.ico" />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
 
       <Component {...pageProps} />
