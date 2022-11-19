@@ -29,7 +29,7 @@ function MyApp() {
   // }, [])
   const { scrollYProgress } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [focused, setFocused] = useState(null);
+  const [focused, setFocused] = useState<null | string>();
   const [selected, setSelected] = useState("Home");
 
   let { scrollY } = useScroll();
