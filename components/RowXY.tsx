@@ -2,25 +2,22 @@ import { useRef, useState } from "react";
 import { Movie } from "../typescript";
 import Thumbnail from "./Thumbnail";
 import Skelet from "./skelet";
-import { motion, Variants } from "framer-motion";
+import { wrap } from "@motionone/utils";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValue,
+  useVelocity,
+  useAnimationFrame,
+} from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 interface Props {
   title: string;
   movies: Movie[];
 }
-const cardVariants: Variants = {
-  offscreen: {
-    opacity: 0,
-  },
-  onscreen: {
-    opacity: 1,
-    transition: {
-      type: "spring",
-      bounce: 0.4,
-      duration: 0.8,
-    },
-  },
-};
+
 function Row({ title, movies }: Props) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(false);
@@ -39,6 +36,33 @@ function Row({ title, movies }: Props) {
     }
   };
   // console.log(movies);
+  // justMove
+  const baseVelocity = -1000;
+  const baseX = useMotionValue(0);
+  const x = useTransform(baseX, (v) => `${wrap(1,-1500, v)}%`);
+  const directionFactor = useRef<number>(1);
+  
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 50,
+    stiffness: 400
+  });
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
+    clamp: false
+  });
+  useAnimationFrame((t, delta) => {
+    let moveBy = directionFactor.current * baseVelocity * (delta / 10000);
+    if (velocityFactor.get() < 0) {
+      directionFactor.current = -1;
+    } else if (velocityFactor.get() > 0) {
+      directionFactor.current = 1;
+    }
+    moveBy += directionFactor.current * moveBy * velocityFactor.get();
+    baseX.set(baseX.get() + moveBy);
+  });
+  // justMove
+
   return (
     <div className="h-40 space-y-0.5 md:space-y-2">
       <h2 className="w-56 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition duration-200 hover:text-white md:text-2xl">
@@ -56,23 +80,8 @@ function Row({ title, movies }: Props) {
           ref={rowRef}
         >
           {movies
-            ? movies.map((movie: any, index) => (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.01 }}
-                  transition={{
-                    duration: .5,
-                    // repeat: Infinity,
-                    delay: index/10 + 0.3,
-                    ease: "linear",
-                    bounce: 0.1,
-                    stiffness: 300, /* 0 until 500 */
-                    damping:10, /* 0 until 10 */
-                    mass:1, /* 0 until 10 */
-                    type: 'spring'
-                  }}
-                >
+            ? movies.map((movie: any) => (
+                <motion.div style={{x}}>
                   <Thumbnail key={movie.id} movie={movie} />
                 </motion.div>
               ))

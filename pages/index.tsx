@@ -4,8 +4,14 @@ import Image from "next/image";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import Row from "../components/Row";
+import RowX from "../components/RowX";
+import RowXY from "../components/RowXY";
+import RowSX from "../components/RowSX";
+import {motion} from "framer-motion"
+
 import { Movie } from "../typescript";
 import requests from "../utils/requests";
+
 interface Props {
   netflixOriginals: Movie[];
   trendingNow: Movie[];
@@ -26,7 +32,7 @@ const Home = ({
   topRated,
   trendingNow,
 }: Props) => {
-
+  
   return (
     <div className="relative h-screen bg-gradient-to-b lg:h-[140vh]">
       
@@ -35,13 +41,16 @@ const Home = ({
         {/*Banner*/}
         <Banner netflixOriginals={netflixOriginals} />
         <section className="space-y-24">
-          <Row title="Trending Now" movies={trendingNow} />
+          <RowX title="Trending Now" movies={trendingNow} />
+          <RowXY title="Trending Now" movies={trendingNow} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />
           {/* My List */}
 
           <Row title="Comedies" movies={comedyMovies} />
-          <Row title="Scary Movies" movies={horrorMovies} />
+          <motion.div initial={{opacity:0}} whileInView={{ opacity: 1 }}>
+            <RowSX title="Scary Movies" movies={horrorMovies} />
+          </motion.div>
           <Row title="Romance Movies" movies={romanceMovies} />
           <Row title="Documentaries" movies={documentaries} />
         </section>
@@ -62,7 +71,7 @@ export const getServerSideProps = async () => {
     horrorMovies,
     romanceMovies,
     documentaries,
-  ] = await Promise.all([
+  ] = await  Promise.all([
     fetch(requests.fetchNetflixOriginals).then((res) => res.json()),
     fetch(requests.fetchTrending).then((res) => res.json()),
     fetch(requests.fetchTopRated).then((res) => res.json()),

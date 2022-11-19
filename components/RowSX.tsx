@@ -1,26 +1,26 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Movie } from "../typescript";
 import Thumbnail from "./Thumbnail";
 import Skelet from "./skelet";
-import { motion, Variants } from "framer-motion";
+import { wrap } from "@motionone/utils";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValue,
+  useVelocity,
+  useAnimationFrame,
+  useViewportScroll,
+} from "framer-motion";
+let scrollThreshold = [0, 1000];
+
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 interface Props {
   title: string;
   movies: Movie[];
 }
-const cardVariants: Variants = {
-  offscreen: {
-    opacity: 0,
-  },
-  onscreen: {
-    opacity: 1,
-    transition: {
-      type: "spring",
-      bounce: 0.4,
-      duration: 0.8,
-    },
-  },
-};
+
 function Row({ title, movies }: Props) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(false);
@@ -39,6 +39,49 @@ function Row({ title, movies }: Props) {
     }
   };
   // console.log(movies);
+  // justMove
+  let { scrollY } = useScroll();
+  let scrollYOnDirectionChange = useRef(scrollY.get());
+  let lastPixelsScrolled = useRef();
+  let lastScrollDirection = useRef();
+  let pixelsScrolled = useMotionValue(0);
+  let x = useTransform(pixelsScrolled, scrollThreshold, [1020, -2000]);
+  let logoHeight = useTransform(pixelsScrolled, scrollThreshold, [33, 30]);
+
+  useEffect(() => {
+    return scrollY.onChange((latest) => {
+      if (latest < 0) return;
+
+      let isScrollingDown = scrollY.getPrevious() - latest < 0;
+      let scrollDirection = isScrollingDown ? "down" : "up";
+      let currentPixelsScrolled = pixelsScrolled.get();
+      let newPixelsScrolled;
+
+      if (lastScrollDirection.current !== scrollDirection) {
+        lastPixelsScrolled.current = currentPixelsScrolled;
+        scrollYOnDirectionChange.current = latest;
+      }
+
+      if (isScrollingDown) {
+        newPixelsScrolled = Math.min(
+          lastPixelsScrolled.current +
+            (latest - scrollYOnDirectionChange.current),
+          scrollThreshold[1]
+        );
+      } else {
+        newPixelsScrolled = Math.max(
+          lastPixelsScrolled.current -
+            (scrollYOnDirectionChange.current - latest),
+          scrollThreshold[0]
+        );
+      }
+
+      pixelsScrolled.set(newPixelsScrolled);
+      lastScrollDirection.current = scrollDirection;
+    });
+  }, [pixelsScrolled, scrollY]);
+  // justMove
+
   return (
     <div className="h-40 space-y-0.5 md:space-y-2">
       <h2 className="w-56 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition duration-200 hover:text-white md:text-2xl">
@@ -58,13 +101,17 @@ function Row({ title, movies }: Props) {
           {movies
             ? movies.map((movie: any, index) => (
                 <motion.div
+                  // initial={{ opacity: 0 }}
+                  // whileInView={{ opacity: 1 }}
+                  // viewport={{ once: false, amount: 0.5 }}
+                  // transition={{ delay: index + 1 }}
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, amount: 0.01 }}
                   transition={{
                     duration: .5,
                     // repeat: Infinity,
-                    delay: index/10 + 0.3,
+                    delay: index/100 + 0.003,
                     ease: "linear",
                     bounce: 0.1,
                     stiffness: 300, /* 0 until 500 */
@@ -72,6 +119,7 @@ function Row({ title, movies }: Props) {
                     mass:1, /* 0 until 10 */
                     type: 'spring'
                   }}
+                  style={{ x }}
                 >
                   <Thumbnail key={movie.id} movie={movie} />
                 </motion.div>
