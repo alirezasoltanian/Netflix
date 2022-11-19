@@ -42,8 +42,8 @@ function Row({ title, movies }: Props) {
   // justMove
   let { scrollY } = useScroll();
   let scrollYOnDirectionChange = useRef(scrollY.get());
-  let lastPixelsScrolled = useRef();
-  let lastScrollDirection = useRef();
+  let lastPixelsScrolled = useRef<number>(1);
+  let lastScrollDirection = useRef<string>('');
   let pixelsScrolled = useMotionValue(0);
   let x = useTransform(pixelsScrolled, scrollThreshold, [1020, -2000]);
   let logoHeight = useTransform(pixelsScrolled, scrollThreshold, [33, 30]);
@@ -101,7 +101,6 @@ function Row({ title, movies }: Props) {
           {movies
             ? movies.map((movie: any, index) => (
                 <motion.div
-                  key={index}
                   // initial={{ opacity: 0 }}
                   // whileInView={{ opacity: 1 }}
                   // viewport={{ once: false, amount: 0.5 }}

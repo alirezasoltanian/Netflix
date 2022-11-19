@@ -6,7 +6,7 @@ import {
   useMotionTemplate,
   useMotionValue,
   useTransform,
-  useViewportScroll,
+  useScroll,
 } from "framer-motion";
 const menus = ["Home", "TV Shows", "Movies", "New & Popular", "My List"];
 let scrollThreshold = [0, 50];
@@ -27,15 +27,15 @@ function MyApp() {
   //     window.removeEventListener('scroll', handleScroll)
   //   }
   // }, [])
-  const { scrollYProgress } = useViewportScroll();
+  const { scrollYProgress } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
   const [focused, setFocused] = useState(null);
   const [selected, setSelected] = useState("Home");
 
-  let { scrollY } = useViewportScroll();
+  let { scrollY } = useScroll();
   let scrollYOnDirectionChange = useRef(scrollY.get());
-  let lastPixelsScrolled = useRef();
-  let lastScrollDirection = useRef();
+  let lastPixelsScrolled = useRef<number>(1);
+  let lastScrollDirection = useRef<string>('');
   let pixelsScrolled = useMotionValue(0);
   let height = useTransform(pixelsScrolled, scrollThreshold, [70, 60]);
   let logoHeight = useTransform(pixelsScrolled, scrollThreshold, [33, 30]);
