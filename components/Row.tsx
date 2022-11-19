@@ -71,7 +71,6 @@ function Row({ title, movies }: Props) {
                     stiffness: 300, /* 0 until 500 */
                     damping:10, /* 0 until 10 */
                     mass:1, /* 0 until 10 */
-                    type: 'spring'
                   }}
                 >
                   <Thumbnail key={movie.id} movie={movie} />

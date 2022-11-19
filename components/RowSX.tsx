@@ -110,7 +110,7 @@ function Row({ title, movies }: Props) {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, amount: 0.01 }}
                   transition={{
-                    duration: .5,
+                    duration: 0.5,
                     // repeat: Infinity,
                     delay: index/100 + 0.003,
                     ease: "linear",
@@ -118,7 +118,6 @@ function Row({ title, movies }: Props) {
                     stiffness: 300, /* 0 until 500 */
                     damping:10, /* 0 until 10 */
                     mass:1, /* 0 until 10 */
-                    type: 'spring'
                   }}
                   style={{ x }}
                 >
