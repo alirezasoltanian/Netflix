@@ -80,8 +80,8 @@ function Row({ title, movies }: Props) {
           ref={rowRef}
         >
           {movies
-            ? movies.map((movie: any) => (
-                <motion.div style={{x}}>
+            ? movies.map((movie: any , index) => (
+                <motion.div style={{x}} key={index}>
                   <Thumbnail key={movie.id} movie={movie} />
                 </motion.div>
               ))

@@ -58,6 +58,7 @@ function Row({ title, movies }: Props) {
           {movies
             ? movies.map((movie: any, index) => (
                 <motion.div
+                  key={index}
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, amount: 0.01 }}
