@@ -3,6 +3,8 @@ import { Movie } from "../typescript";
 import Image from "next/image";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { modalState, movieState } from "../atoms/modalAtom";
+import { useRecoilState } from "recoil";
 interface Props {
   movie: Movie;
 }
@@ -28,6 +30,9 @@ const boxUpVariants = {
   in: {
     opacity:[0,1],
     width: ['100%','100%'] , height: ['0%','100%'],
+    transition: {
+      duration: 0.4,
+    },
     
   },
   exit: {
@@ -49,7 +54,8 @@ const boxDownVariants = {
     opacity:[0,1],
     y: ['90px','0px'],
     transition: {
-      delay: 0.6,
+      delay: 0.1,
+      duration:0.6,
     },
   },
   
@@ -61,7 +67,8 @@ const boxDownVariants = {
 };
 function Thumbnail({ movie }: Props) {
   const [focused, setFocused] = useState(false);
-
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
+  const [showModal, setShowModal] = useRecoilState(modalState)
   return (
     <motion.div
       className={` relative h-28 min-w-[180px] cursor-pointer transition duration-200 ease-out md:h-36 md:min-w-[260px] `}
@@ -71,7 +78,10 @@ function Thumbnail({ movie }: Props) {
       variants={boxVariants}
       animate='in'
       initial='out'
-      
+      onClick={() => {
+        setCurrentMovie(movie)
+        setShowModal(true)
+      }}
     >
       <Image
         src={`https://image.tmdb.org/t/p/w500${
@@ -88,7 +98,7 @@ function Thumbnail({ movie }: Props) {
         variants={boxUpVariants}
         exit='exit'
       >
-        <motion.h3 variants={boxDownVariants}  className="flex font-bold text-black  mt-10 justify-center">
+        <motion.h3 variants={boxDownVariants}  className="flex font-bold text-black items-center mt-10 justify-center">
         {movie?.title || movie?.name || movie?.original_name}
         </motion.h3>
       </motion.div> 

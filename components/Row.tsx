@@ -4,6 +4,9 @@ import Thumbnail from "./Thumbnail";
 import Skelet from "./skelet";
 import { motion, Variants } from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { TitleText, TypingText } from './CustomTexts';
+import { staggerContainer } from '../utils/motion';
+
 interface Props {
   title: string;
   movies: Movie[];
@@ -40,10 +43,13 @@ function Row({ title, movies }: Props) {
   };
   // console.log(movies);
   return (
-    <div className="h-40 space-y-0.5 md:space-y-2">
-      <h2 className="w-56 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition duration-200 hover:text-white md:text-2xl">
-        {title}
-      </h2>
+    <motion.div variants={staggerContainer}
+    initial="hidden"
+    whileInView="show" 
+    viewport={{ once: false, amount: 0.25 }}
+    className="h-40 space-y-0.5 md:space-y-2">
+     
+      <TypingText titles={title} textStyles='' />
       <div className="group relative md:-ml-2">
         <ChevronLeftIcon
           className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${
@@ -83,7 +89,7 @@ function Row({ title, movies }: Props) {
           onClick={() => handleClick("right")}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

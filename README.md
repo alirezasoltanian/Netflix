@@ -35,3 +35,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 <!-- npx pwa-asset-generator public/icon.png public --dark-mode --background dimgrey --splash-only --type jpeg --quality 80 --index public/index.html -->
 <!-- npx pwa-asset-generator public/icon.png public -m public/icon.png --padding "calc(50vh - 25%)" -b "linear-gradient(135deg, #21b9e4, #ff0098)" --quality 100 --index public/index.html --favicon -->
+
+npx create-next-app --example with-tailwindcss with-tailwindcss-app

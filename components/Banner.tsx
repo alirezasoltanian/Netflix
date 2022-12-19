@@ -5,6 +5,8 @@ import { baseUrl } from "../constansts/movie";
 import { FaPlay } from "react-icons/fa";
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useRecoilState } from "recoil";
+import { modalState, movieState } from "../atoms/modalAtom";
 interface Props {
   netflixOriginals: Movie[];
 }
@@ -43,6 +45,8 @@ const iconUpVariants = {
 };
 function Banner({ netflixOriginals }: Props) {
   const [movie, setMovie] = useState<Movie | null>();
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
+  const [showModal, setShowModal] = useRecoilState(modalState)
 
   // const {scrollYProgress} = useScroll()
   // let y = useTransform(scrollYProgress , [0 , 1] , ['0%' , '70%'])
@@ -86,8 +90,13 @@ function Banner({ netflixOriginals }: Props) {
           <FaPlay className="h-4 w-4 text-black md:h-7 md:w-7" />
           Play
         </motion.button>
-        <motion.button variants={iconUpVariants} className="bannerButton bg-gray-500/80 ">
-          <InformationCircleIcon className="h-5 w-5 md:h-8 md:w-8" />
+        <motion.button variants={iconUpVariants} onClick={() => {
+            setCurrentMovie(movie)
+            setShowModal(true)
+          }} className="bannerButton bg-gray-500/80 ">
+          <InformationCircleIcon className="h-5 w-5 md:h-8 md:w-8" 
+          
+          />
           More Info
         </motion.button>
       </div>

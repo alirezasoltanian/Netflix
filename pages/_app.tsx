@@ -1,7 +1,8 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-
+import { RecoilRoot } from 'recoil'
+import { AuthProvider } from '../hooks/useAuth'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div style={{WebkitTapHighlightColor: 'transparent'}}>
@@ -164,7 +165,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
 
-      <Component {...pageProps} />
+      {/* Higher Order Component */}
+      <RecoilRoot>
+      {/* Higher Order Component */}
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </RecoilRoot>
     </div>
   );
 }

@@ -18,9 +18,13 @@ interface Props {
   movies: Movie[];
 }
 
+import { TitleText, TypingText } from "./CustomTexts";
+import { staggerContainer } from "../utils/motion";
+
 function Row({ title, movies }: Props) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(false);
+  const [deltas, setDeltas] = useState(20);
 
   const handleClick = (direction: string) => {
     console.log(rowRef.current!.scrollLeft);
@@ -39,20 +43,20 @@ function Row({ title, movies }: Props) {
   // justMove
   const baseVelocity = -1000;
   const baseX = useMotionValue(0);
-  const x = useTransform(baseX, (v) => `${wrap(1,-1500, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(1, -1500, v)}%`);
   const directionFactor = useRef<number>(1);
-  
+
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(scrollVelocity, {
     damping: 50,
-    stiffness: 400
+    stiffness: 400,
   });
   const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
-    clamp: false
+    clamp: false,
   });
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 10000);
+    let moveBy = directionFactor.current * baseVelocity * (deltas / 50000);
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
     } else if (velocityFactor.get() > 0) {
@@ -64,10 +68,17 @@ function Row({ title, movies }: Props) {
   // justMove
 
   return (
-    <div className="h-40 space-y-0.5 md:space-y-2">
-      <h2 className="w-56 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition duration-200 hover:text-white md:text-2xl">
-        {title}
-      </h2>
+    <motion.div
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="show"
+      onMouseEnter={() => setDeltas(0)}
+      onFocus={() => setDeltas(0)}
+      onMouseLeave={() => setDeltas(20)}
+      viewport={{ once: false, amount: 0.25 }}
+      className="h-40 space-y-0.5 md:space-y-2"
+    >
+      <TypingText titles={title} textStyles="" />
       <div className="group relative md:-ml-2">
         <ChevronLeftIcon
           className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${
@@ -80,8 +91,8 @@ function Row({ title, movies }: Props) {
           ref={rowRef}
         >
           {movies
-            ? movies.map((movie: any , index) => (
-                <motion.div style={{x}} key={index}>
+            ? movies.map((movie: any, index) => (
+                <motion.div style={{ x }} key={index}>
                   <Thumbnail key={movie.id} movie={movie} />
                 </motion.div>
               ))
@@ -92,7 +103,7 @@ function Row({ title, movies }: Props) {
           onClick={() => handleClick("right")}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
