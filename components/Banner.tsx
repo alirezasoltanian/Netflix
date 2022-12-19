@@ -44,7 +44,7 @@ const iconUpVariants = {
   },
 };
 function Banner({ netflixOriginals }: Props) {
-  const [movie, setMovie] = useState<Movie | null>();
+  const [movie, setMovie] = useState<Movie | null | undefined>();
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
   const [showModal, setShowModal] = useRecoilState(modalState)
 
