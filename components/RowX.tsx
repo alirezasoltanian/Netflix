@@ -47,7 +47,7 @@ function Row({ title, movies }: Props) {
   const x = useTransform(baseX, (v) => `${wrap(1, -1500, v)}%`);
   const directionFactor = useRef<number>(1);
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (deltas / 50000);
+    let moveBy = directionFactor.current * baseVelocity * (deltas / 20000);
 
     baseX.set(baseX.get() + moveBy);
   });

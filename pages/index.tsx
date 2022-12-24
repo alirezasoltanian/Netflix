@@ -1,25 +1,27 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
 import { lazy, Suspense } from 'react';
-import Banner from "../components/Banner";
-import Header from "../components/Header";
-import Row from "../components/Row";
-import RowX from "../components/RowX";
-import RowXY from "../components/RowXY";
+import Banner from '../components/Banner';
+import Header from '../components/Header';
+import Row from '../components/Row';
+import RowX from '../components/RowX';
+import RowXY from '../components/RowXY';
 // import RowSX from "../components/RowSX";
 const RowSX = lazy(() => import('../components/RowSX'));
 
-import {motion} from "framer-motion"
-import Modal from '../components/modal'
-import { Movie } from "../typescript";
-import requests from "../utils/requests";
-import { Footer } from "../components/footer";
+import { motion } from 'framer-motion';
+import Modal from '../components/modal';
+import { Movie } from '../typescript';
+import requests from '../utils/requests';
+import { Footer } from '../components/footer';
 
-import useAuth from '../hooks/useAuth' 
-import { modalState } from "../atoms/modalAtom";
-import { useRecoilState } from "recoil";
-import Loading from "../components/Loading";
+import useAuth from '../hooks/useAuth';
+import { modalState } from '../atoms/modalAtom';
+import { useRecoilState } from 'recoil';
+import Loading from '../components/Loading';
+
+import { useInView } from 'react-intersection-observer';
 
 interface Props {
   netflixOriginals: Movie[];
@@ -41,34 +43,35 @@ const Home = ({
   topRated,
   trendingNow,
 }: Props) => {
-  const { user, loading } = useAuth()
+  const { ref, inView } = useInView({ threshold: 0.4, triggerOnce: true });
 
-  const [showModal, setShowModal] = useRecoilState(modalState)
+  const { user, loading } = useAuth();
+
+  const [showModal, setShowModal] = useRecoilState(modalState);
 
   return (
-    
-    <div className="relative h-screen bg-gradient-to-b lg:h-[140vh]">
-      
+    <div className='relative h-screen bg-gradient-to-b lg:h-[140vh]'>
       <Header />
-      <main className="relative pl-4  pb-24 lg:space-y-24 lg:pl-16">
+      <main className='relative pl-4  pb-24 lg:space-y-24 lg:pl-16'>
         {/*Banner*/}
         <Banner netflixOriginals={netflixOriginals} />
-        <section className="space-y-24">
-          <RowX title="Trending Now" movies={trendingNow} />
-          <RowXY title="Trending Now" movies={trendingNow} />
-          <Row title="Top Rated" movies={topRated} />
-          <Row title="Action Thrillers" movies={actionMovies} />
+        <section className='space-y-24' ref={ref}>
+          <RowX title='Trending Now' movies={trendingNow} />
+          <RowXY title='Trending Now' movies={trendingNow} />
+          <Row title='Top Rated' movies={topRated} />
+          <Row title='Action Thrillers' movies={actionMovies} />
           {/* My List */}
 
-          <Row title="Comedies" movies={comedyMovies} />
-          <motion.div initial={{opacity:0}} whileInView={{ opacity: 1 }}>
-          <Suspense fallback={<Loading />}>
-
-            <RowSX title="Scary Movies" movies={horrorMovies} />
-          </Suspense>
+          <Row title='Comedies' movies={comedyMovies} />
+            {inView && 
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+              <Suspense fallback={<Loading />}>
+                <RowSX title='Scary Movies' movies={horrorMovies} />
+              </Suspense>
           </motion.div>
-          <Row title="Romance Movies" movies={romanceMovies} />
-          <Row title="Documentaries" movies={documentaries} />
+            }
+          <Row title='Romance Movies' movies={romanceMovies} />
+          <Row title='Documentaries' movies={documentaries} />
         </section>
         <Footer />
       </main>
@@ -88,7 +91,7 @@ export const getServerSideProps = async () => {
     horrorMovies,
     romanceMovies,
     documentaries,
-  ] = await  Promise.all([
+  ] = await Promise.all([
     fetch(requests.fetchNetflixOriginals).then((res) => res.json()),
     fetch(requests.fetchTrending).then((res) => res.json()),
     fetch(requests.fetchTopRated).then((res) => res.json()),
