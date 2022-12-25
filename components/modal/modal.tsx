@@ -12,6 +12,9 @@ import { CheckIcon, PlusIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { Element, Genre, Movie } from '../../typescript';
 import MuiModal from '@mui/material/Modal';
 import {
+  motion,
+} from "framer-motion";
+import {
   collection,
   deleteDoc,
   doc,
@@ -37,6 +40,8 @@ function Modal() {
   const [volume, setVolume] = useRecoilState(volumeState);
   const [movies, setMovies] = useState<DocumentData[] | Movie[]>([]);
   let [hovered, setHovered] = useState(false);
+  let [panning, setPanning] = useState(false);
+
   const toastStyle = {
     background: 'white',
     color: 'black',
@@ -144,7 +149,9 @@ function Modal() {
           <XCircleIcon className='h-6 w-6' />
         </button>
 
-        <div
+        <motion.div
+          onPanStart={() => setPanning(true)}
+          onPanEnd={() => setPanning(false)}
           onPointerEnter={() => setHovered(true)}
           onPointerLeave={() => setHovered(false)}
           className='relative mx-5 pt-[56.25%]'
@@ -159,11 +166,11 @@ function Modal() {
             volume={volume}
           />
           <div>
-            { hovered && 
-            <div className='absolute -mt-[35%] ml-[70%]'>
-              <LineVolume />
-            </div>
-            }
+            {hovered || panning && (
+              <div className='absolute -mt-[35%] ml-[70%]'>
+                <LineVolume />
+              </div>
+            )}
             <div className='absolute bottom-10 flex w-full items-center justify-between px-10'>
               <div className='flex space-x-2'>
                 <button
@@ -196,7 +203,7 @@ function Modal() {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
         <div className='flex space-x-16 rounded-b-md bg-[#181818] px-10 py-8'>
           <div className='space-y-6 text-lg'>
             <Line />
