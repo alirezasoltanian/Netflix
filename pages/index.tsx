@@ -11,7 +11,7 @@ import RowXY from '../components/RowXY';
 const RowSX = lazy(() => import('../components/RowSX'));
 
 import { motion } from 'framer-motion';
-import Modal from '../components/modal';
+import Modal from '../components/modal/modal';
 import { Movie } from '../typescript';
 import requests from '../utils/requests';
 import { Footer } from '../components/footer';
@@ -63,13 +63,13 @@ const Home = ({
           {/* My List */}
 
           <Row title='Comedies' movies={comedyMovies} />
-            {inView && 
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+          {inView && (
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
               <Suspense fallback={<Loading />}>
                 <RowSX title='Scary Movies' movies={horrorMovies} />
               </Suspense>
-          </motion.div>
-            }
+            </motion.div>
+          )}
           <Row title='Romance Movies' movies={romanceMovies} />
           <Row title='Documentaries' movies={documentaries} />
         </section>
