@@ -166,7 +166,7 @@ function Modal() {
             volume={volume}
           />
           <div>
-            {hovered || panning && (
+            {hovered && (
               <div className='absolute -mt-[35%] ml-[70%]'>
                 <LineVolume />
               </div>
