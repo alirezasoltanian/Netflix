@@ -25,7 +25,6 @@ import {
 import { db } from '../../firebase';
 import useAuth from '../../hooks/useAuth';
 import toast, { Toaster } from 'react-hot-toast';
-import Line from './Line';
 import LineVolume from './LineVolume';
 
 function Modal() {
@@ -138,12 +137,12 @@ function Modal() {
     <MuiModal
       open={showModal}
       onClose={handleClose}
-      className='fixed !top-7 left-0 right-0 z-50 mx-auto w-full max-w-5xl overflow-hidden overflow-y-scroll rounded-md scrollbar-hide'
+      className='fixed !top-7 left-0 right-0 z-50  mx-auto w-full max-w-5xl overflow-hidden overflow-y-scroll rounded-md scrollbar-hide'
     >
-      <>
+      <div className='mx-10 '>
         <Toaster position='bottom-center' />
         <button
-          className='modalButton absolute right-5 top-5 !z-40 h-9 w-9 border-none bg-[#181818] hover:bg-[#181818]'
+          className='modalButton absolute right-12 top-5 !z-40 h-9 w-9 border-none bg-[#181818] hover:bg-[#181818]'
           onClick={handleClose}
         >
           <XCircleIcon className='h-6 w-6' />
@@ -154,7 +153,7 @@ function Modal() {
           onPanEnd={() => setPanning(false)}
           onPointerEnter={() => setHovered(true)}
           onPointerLeave={() => setHovered(false)}
-          className='relative mx-5 pt-[56.25%]'
+          className='relative  pt-[56.25%]'
         >
           <ReactPlayer
             url={`https://www.youtube.com/watch?v=${trailer}`}
@@ -206,7 +205,6 @@ function Modal() {
         </motion.div>
         <div className='flex space-x-16 rounded-b-md bg-[#181818] px-10 py-8'>
           <div className='space-y-6 text-lg'>
-            <Line />
             <div className='flex  items-center space-x-2 text-sm'>
               <p className='font-semibold text-green-400'>
                 {movie!.vote_average * 10}% Match
@@ -239,7 +237,7 @@ function Modal() {
             </div>
           </div>
         </div>
-      </>
+      </div>
     </MuiModal>
   );
 }

@@ -87,6 +87,7 @@ function Thumbnail({ movie }: Props) {
         src={`https://image.tmdb.org/t/p/w500${
           movie.backdrop_path || movie.poster_path
         }`}
+        blurDataURL="blur"
         className="object-cover  rounded-sm md:rounded"
         layout="fill"
       />

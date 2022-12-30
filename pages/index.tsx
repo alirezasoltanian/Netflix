@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useRef } from 'react';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
 import Row from '../components/Row';
@@ -22,6 +22,7 @@ import { useRecoilState } from 'recoil';
 import Loading from '../components/Loading';
 
 import { useInView } from 'react-intersection-observer';
+import Rowgsap from '../components/Rowgsap';
 
 interface Props {
   netflixOriginals: Movie[];
@@ -48,6 +49,7 @@ const Home = ({
   const { user, loading } = useAuth();
 
   const [showModal, setShowModal] = useRecoilState(modalState);
+  const scroller = useRef<HTMLDivElement>(null);
 
   return (
     <div className='relative h-screen bg-gradient-to-b lg:h-[140vh]'>
@@ -58,11 +60,12 @@ const Home = ({
         <section className='space-y-24' ref={ref}>
           <RowX title='Trending Now' movies={trendingNow} />
           <RowXY title='Trending Now' movies={trendingNow} />
+          <div ref={scroller} className='space-y-24'>
           <Row title='Top Rated' movies={topRated} />
-          <Row title='Action Thrillers' movies={actionMovies} />
+          <Rowgsap scroller={scroller as React.RefObject<HTMLDivElement>} title='Action Thrillers' movies={actionMovies} />
           {/* My List */}
-
           <Row title='Comedies' movies={comedyMovies} />
+          </div>
           {inView && (
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
               <Suspense fallback={<Loading />}>
