@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 interface Props {
   title: string;
   movies: Movie[];
-  scroller: HTMLDivElement | null;
+  scroller: any  ;
 }
 const cardVariants: Variants = {
   offscreen: {
@@ -48,7 +48,7 @@ function Rowgsap({ title, movies , scroller }: Props) {
   const skills = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let skillSet = gsap.utils.toArray('.skill-set');
-
+    
     let to = gsap.to(skillSet, {
       xPercent: () => -100 * (skillSet.length - 1),
       ease: 'none',

@@ -62,7 +62,7 @@ const Home = ({
           <RowXY title='Trending Now' movies={trendingNow} />
           <div ref={scroller} className='space-y-24'>
           <Row title='Top Rated' movies={topRated} />
-          <Rowgsap scroller={scroller as React.RefObject<HTMLDivElement>} title='Action Thrillers' movies={actionMovies} />
+          <Rowgsap scroller={scroller as any} title='Action Thrillers' movies={actionMovies} />
           {/* My List */}
           <Row title='Comedies' movies={comedyMovies} />
           </div>
