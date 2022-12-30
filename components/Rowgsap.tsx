@@ -54,7 +54,7 @@ function Rowgsap({ title, movies , scroller }: Props) {
       ease: 'none',
       scrollTrigger: {
         trigger: scroller.current ,
-        markers: true,
+        markers: false,
         pin: true,
         pinSpacing: true,
         scrub: 1,

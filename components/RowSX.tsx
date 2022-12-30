@@ -114,7 +114,7 @@ function Row({ title, movies }: Props) {
                   key={index}
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.01 }}
+                  viewport={{ once: true, amount: 0.001 }}
                   transition={{
                     duration: 0.5,
                     // repeat: Infinity,

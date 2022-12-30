@@ -66,15 +66,21 @@ const Home = ({
           {/* My List */}
           <Row title='Comedies' movies={comedyMovies} />
           </div>
-          {inView && (
+          
+          <Row title='Romance Movies' movies={romanceMovies} />
+          <Row title='Documentaries' movies={documentaries} />
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
               <Suspense fallback={<Loading />}>
                 <RowSX title='Scary Movies' movies={horrorMovies} />
               </Suspense>
             </motion.div>
-          )}
-          <Row title='Romance Movies' movies={romanceMovies} />
-          <Row title='Documentaries' movies={documentaries} />
+          {/* {inView && (
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+              <Suspense fallback={<Loading />}>
+                <RowSX title='Scary Movies' movies={horrorMovies} />
+              </Suspense>
+            </motion.div>
+          )} */}
         </section>
         <Footer />
       </main>
