@@ -75,7 +75,7 @@ function Row({ title, movies }: Props) {
       onMouseEnter={() => setDeltas(0)}
       onFocus={() => setDeltas(0)}
       onMouseLeave={() => setDeltas(20)}
-      viewport={{ once: false, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.25 }}
       className="h-40 space-y-0.5 md:space-y-2"
     >
       <TypingText titles={title} textStyles="" />

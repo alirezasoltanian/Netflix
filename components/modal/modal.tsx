@@ -155,16 +155,21 @@ function Modal() {
           onPointerLeave={() => setHovered(false)}
           className='relative  pt-[56.25%]'
         >
+          {trailer ?
           <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${trailer}`}
+          url={`https://www.youtube.com/watch?v=${trailer}`}
             width='100%'
             height='100%'
-            style={{ position: 'absolute', top: '0', left: '0' }}
+            style={{  position: 'absolute', top: '0', left: '0' }}
             playing={play}
+            className='bg-gray-400 '
             muted={muted}
             volume={volume}
-          />
-          <div>
+            /> 
+            :
+            <div className='bg-gray-600 w-[100%] h-[100%] top-0 left-0'></div>
+          }
+            <div>
             {hovered && (
               <div className='absolute -mt-[35%] ml-[70%]'>
                 <LineVolume />

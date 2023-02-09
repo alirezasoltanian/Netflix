@@ -46,7 +46,7 @@ function Row({ title, movies }: Props) {
     <motion.div variants={staggerContainer}
     initial="hidden"
     whileInView="show" 
-    viewport={{ once: false, amount: 0.25 }}
+    viewport={{ once: true, amount: 0.25 }}
     className="h-40 space-y-0.5 md:space-y-2">
      
       <TypingText titles={title} textStyles='' />
@@ -67,7 +67,7 @@ function Row({ title, movies }: Props) {
                   key={index}
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: false, amount: 0.001 }}
+                  viewport={{ once: true, amount: 0.001 }}
                   transition={{
                     duration: .01,
                     // repeat: Infinity,

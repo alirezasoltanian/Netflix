@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { BellIcon } from "@heroicons/react/20/solid";
+
 import {
   motion,
   useMotionTemplate,
@@ -8,6 +9,9 @@ import {
   useTransform,
   useScroll,
 } from "framer-motion";
+import logosite from '/public/logosite1.png'
+import Image from "next/image";
+import { useRouter } from "next/router";
 const menus = ["Home", "TV Shows", "Movies", "New & Popular", "My List"];
 let scrollThreshold = [0, 50];
 
@@ -45,7 +49,7 @@ function MyApp() {
     [1, 0.4]
   );
   let backgroundColorTemplate = useMotionTemplate`rgb(239 68 68  / ${backgroundOpacity})`;
-
+  const router = useRouter()
   useEffect(() => {
     return scrollY.onChange((latest) => {
       if (latest < 0) return;
@@ -85,18 +89,14 @@ function MyApp() {
       className={` backdrop-blur bg-black sm:bg-transparent md:bg-red-500`}
     >
       <div className="flex items-center space-x-2 md:space-x-10">
-        <img
-          src="https://rb.gy/ulxxee"
+        <Image
+          src={logosite}
           width={100}
           height={100}
           className="object-contain cursor-pointer text-shadow-lg"
         />
         <ul className="hidden space-x-4 md:flex">
-          {/* <li className="headerLink">Home</li>
-          <li className="headerLink">TV Shows</li>
-          <li className="headerLink">Movies</li>
-          <li className="headerLink">New & Popular</li>
-          <li className="headerLink">My List</li> */}
+          
           {menus.map((item,index) => (
             <motion.li
               key={item}
@@ -154,6 +154,7 @@ function MyApp() {
       </div>
       <div className="flex items-center space-x-4 text-sm font-light">
         {/* <SearchIcon className='hidden w-6 h-6 sm sm:inline' /> */}
+        <button onClick={() => router.push('login')} className="bg-red-700 hover:bg-white  hover:text-red-700 duration-500 font-bold py-2 rounded-md px-8">login</button>
         <p className="hidden lg:inline">Kids</p>
         <BellIcon className="w-6 h-6" />
         <Link href="/account">
