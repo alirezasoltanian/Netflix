@@ -79,6 +79,7 @@ function Rowgsap({ title, movies , scroller }: Props) {
         // className='h-40 space-y-0.5 md:space-y-2'
         className='overflow-x-hidden'
       >
+        
         <TypingText titles={title} textStyles='' />
 
         <div className='group relative md:-ml-2'>
