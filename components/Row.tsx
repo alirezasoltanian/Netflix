@@ -79,6 +79,7 @@ function Row({ title, movies }: Props) {
                     mass:1, /* 0 until 10 */
                   }}
                 >
+                  
                   <Thumbnail key={movie.id} movie={movie} />
                 </motion.div>
               ))
