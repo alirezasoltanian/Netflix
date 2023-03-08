@@ -14,6 +14,7 @@ export const TypingText = ({ titles, textStyles }) => (
       </motion.span>
     ))}
   </motion.p>
+  
 );
 
 export const TitleText = ({ titles, textStyles }) => (
