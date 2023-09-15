@@ -90,7 +90,7 @@ function Thumbnail({ movie }: Props) {
           movie.backdrop_path || movie.poster_path
         }`}
         blurDataURL="blur"
-        className="object-cover  rounded-sm md:rounded"
+        className="object-cover bg-slate-300  rounded-sm md:rounded"
         layout="fill"
       />
       <AnimatePresence>
