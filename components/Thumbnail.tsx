@@ -84,6 +84,8 @@ function Thumbnail({ movie }: Props) {
       }}
     >
       <Image
+          alt='image'
+
         src={`https://image.tmdb.org/t/p/w500${
           movie.backdrop_path || movie.poster_path
         }`}

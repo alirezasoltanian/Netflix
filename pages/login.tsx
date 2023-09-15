@@ -1,32 +1,32 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import useAuth from '../hooks/useAuth'
+import Head from "next/head";
+import Image from "next/image";
+import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import useAuth from "../hooks/useAuth";
 
 interface Inputs {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 function Login() {
-  const [login, setLogin] = useState(false)
-  const { signIn, signUp } = useAuth()
+  const [login, setLogin] = useState(false);
+  const { signIn, signUp } = useAuth();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>()
-  
+  } = useForm<Inputs>();
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data)
+    console.log(data);
     if (login) {
-      await signIn(data.email, data.password)
+      await signIn(data.email, data.password);
     } else {
-      await signUp(data.email, data.password)
+      await signUp(data.email, data.password);
     }
-  }
+  };
 
   return (
     <div className="relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent">
@@ -35,6 +35,7 @@ function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Image
+        alt="image"
         src="https://rb.gy/p2hphi"
         layout="fill"
         className="-z-10 !hidden opacity-60 sm:!inline"
@@ -58,9 +59,9 @@ function Login() {
               type="email"
               placeholder="Email"
               className={`input ${
-                errors.email && 'border-b-2 border-orange-500'
+                errors.email && "border-b-2 border-orange-500"
               }`}
-              {...register('email', { required: true })}
+              {...register("email", { required: true })}
             />
             {errors.email && (
               <p className="p-1 text-[13px] font-light  text-orange-500">
@@ -71,10 +72,10 @@ function Login() {
           <label className="inline-block w-full">
             <input
               type="password"
-              {...register('password', { required: true })}
+              {...register("password", { required: true })}
               placeholder="Password"
               className={`input ${
-                errors.password && 'border-b-2 border-orange-500'
+                errors.password && "border-b-2 border-orange-500"
               }`}
             />
             {errors.password && (
@@ -92,7 +93,7 @@ function Login() {
           Sign In
         </button>
         <div className="text-[gray]">
-          New to Netflix?{' '}
+          New to Netflix?{" "}
           <button
             className="cursor-pointer text-white hover:underline"
             onClick={() => setLogin(false)}
@@ -103,7 +104,7 @@ function Login() {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

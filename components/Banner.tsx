@@ -67,6 +67,7 @@ function Banner({ netflixOriginals }: Props) {
         className=" mt-[70px] absolute top-0 left-0 -z-10 h-[95vh] w-full"
       >
         <Image
+          alt='image'
           src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
           layout="fill"
           objectFit="cover"

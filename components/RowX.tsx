@@ -1,25 +1,22 @@
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { wrap } from "@motionone/utils";
+import {
+  motion,
+  useAnimationFrame,
+  useMotionValue,
+  useTransform
+} from "framer-motion";
 import { useRef, useState } from "react";
 import { Movie } from "../typescript";
 import Thumbnail from "./Thumbnail";
 import Skelet from "./skelet";
-import { wrap } from "@motionone/utils";
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-  useMotionValue,
-  useVelocity,
-  useAnimationFrame,
-} from "framer-motion";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 interface Props {
   title: string;
   movies: Movie[];
 }
 
-import { TitleText, TypingText } from "./CustomTexts";
 import { staggerContainer } from "../utils/motion";
+import { TypingText } from "./CustomTexts";
 
 function Row({ title, movies }: Props) {
   const rowRef = useRef<HTMLDivElement>(null);

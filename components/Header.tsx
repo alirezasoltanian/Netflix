@@ -90,6 +90,8 @@ function MyApp() {
     >
       <div className="flex items-center space-x-2 md:space-x-10">
         <Image
+          alt='image'
+
           src={logosite}
           width={100}
           height={100}

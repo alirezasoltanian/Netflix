@@ -2,16 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { Movie } from "../typescript";
 import Thumbnail from "./Thumbnail";
 import Skelet from "./skelet";
-import { wrap } from "@motionone/utils";
 import {
   motion,
   useScroll,
-  useSpring,
+ 
   useTransform,
   useMotionValue,
-  useVelocity,
-  useAnimationFrame,
-  useViewportScroll,
+
 } from "framer-motion";
 let scrollThreshold = [0, 1000];
 
