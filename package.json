@@ -15,6 +15,7 @@
     "@heroicons/react": "^2.0.18",
     "@motionone/utils": "^10.16.3",
     "@mui/material": "^5.14.11",
+    "@typescript-eslint/parser": "^6.7.3",
     "classnames": "^2.3.2",
     "dotenv": "^16.3.1",
     "firebase": "^10.4.0",
