@@ -64,7 +64,7 @@ function Banner({ netflixOriginals }: Props) {
     >
       <motion.div
         style={{ y }}
-        className=" mt-[70px] absolute top-0 left-0 -z-10 h-[95vh] w-full"
+        className=" mt-[70px] absolute bg-slate-300 top-0 left-0 -z-10 h-[95vh] w-full"
       >
         <Image
           alt='image'

@@ -14,7 +14,7 @@
 @layer components {
   .headerLink {
     @apply cursor-pointer text-sm font-light text-white
-    transition duration-[.4s] hover:text-[#141414] ;
+    transition duration-[.4s]  ;
     
   }
   .bannerButton {
@@ -46,4 +46,22 @@
 ::-webkit-scrollbar-track{
   background-color: transparent;
 
+}
+
+
+.backdrop {
+  /* position: absolute; */
+  --extended-by: 120px;
+  bottom: calc(-1 * var(--extended-by));
+  /* Mask out the part falling outside the new */
+  --cutoff: calc(100% - var(--extended-by));
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0,
+    black var(--cutoff),
+    transparent var(--cutoff)
+  );
+  --blur: 15px;
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur))
 }

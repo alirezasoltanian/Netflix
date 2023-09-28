@@ -1,6 +1,5 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
+// @ts-nocheck comment at the top of a file to disable type-checking for that file
+
 import { lazy, Suspense, useRef } from 'react';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
@@ -11,15 +10,15 @@ import RowXY from '../components/RowXY';
 const RowSX = lazy(() => import('../components/RowSX'));
 
 import { motion } from 'framer-motion';
+import { Footer } from '../components/footer';
 import Modal from '../components/modal/modal';
 import { Movie } from '../typescript';
 import requests from '../utils/requests';
-import { Footer } from '../components/footer';
 
-import useAuth from '../hooks/useAuth';
-import { modalState } from '../atoms/modalAtom';
 import { useRecoilState } from 'recoil';
+import { modalState } from '../atoms/modalAtom';
 import Loading from '../components/Loading';
+import useAuth from '../hooks/useAuth';
 
 import { useInView } from 'react-intersection-observer';
 import Rowgsap from '../components/Rowgsap';

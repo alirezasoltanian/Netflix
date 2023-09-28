@@ -46,7 +46,7 @@ function MyApp() {
   let backgroundOpacity = useTransform(
     pixelsScrolled,
     scrollThreshold,
-    [1, 0.4]
+    [0.6, 0.1]
   );
   let backgroundColorTemplate = useMotionTemplate`rgb(239 68 68  / ${backgroundOpacity})`;
   const router = useRouter()
@@ -86,7 +86,7 @@ function MyApp() {
   return (
     <motion.header  onMouseLeave={() => setFocused(null)}
       style={{ height, backgroundColor: backgroundColorTemplate }}
-      className={` backdrop-blur bg-black sm:bg-transparent md:bg-red-500`}
+      className={` bg-black sm:bg-transparent pb-[160px] backdrop`}
     >
       <div className="flex items-center space-x-2 md:space-x-10">
         <Image
@@ -102,7 +102,7 @@ function MyApp() {
           {menus.map((item,index) => (
             <motion.li
               key={item}
-              className="headerLink"
+              className="headerLink "
               style={{ position: "relative" }}
               onClick={() => setSelected(item)}
               onKeyDown={(event: { key: string }) =>
@@ -128,7 +128,7 @@ function MyApp() {
                     width: "120%",
                     height: "120%",
                     opacity: "0.5",
-                    background: "rgb(0,0,0,0.5)",
+                    background: "#ffffffe2",
                     borderRadius: "5px",
                     zIndex: 0,
                   }}
@@ -156,7 +156,7 @@ function MyApp() {
       </div>
       <div className="flex items-center space-x-4 text-sm font-light">
         {/* <SearchIcon className='hidden w-6 h-6 sm sm:inline' /> */}
-        <button onClick={() => router.push('login')} className="bg-red-700 hover:bg-white  hover:text-red-700 duration-500 font-bold py-2 rounded-md px-8">login</button>
+        <button onClick={() => router.push('login')} className="bg-red-700  hover:bg-white  hover:text-red-700 duration-500 font-bold py-2 rounded-md px-8">login</button>
         <p className="hidden lg:inline">Kids</p>
         <BellIcon className="w-6 h-6" />
         <Link href="/account">
