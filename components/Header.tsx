@@ -86,9 +86,9 @@ function MyApp() {
   return (
     <motion.header  onMouseLeave={() => setFocused(null)}
       style={{ height, backgroundColor: backgroundColorTemplate }}
-      className={` bg-black sm:bg-transparent pb-[160px] backdrop`}
+      className={` bg-black sm:bg-transparent pt-4  pb-[175px] backdrop`}
     >
-      <div className="flex items-center space-x-2 md:space-x-10">
+      <div className="flex mt-6 items-center space-x-2 md:space-x-10">
         <Image
           alt='image'
 
@@ -154,16 +154,18 @@ function MyApp() {
           ))}
         </ul>
       </div>
-      <div className="flex items-center space-x-4 text-sm font-light">
+      <div className="flex items-center space-x-4 mt-6 text-sm font-light">
         {/* <SearchIcon className='hidden w-6 h-6 sm sm:inline' /> */}
         <button onClick={() => router.push('login')} className="bg-red-700  hover:bg-white  hover:text-red-700 duration-500 font-bold py-2 rounded-md px-8">login</button>
         <p className="hidden lg:inline">Kids</p>
         <BellIcon className="w-6 h-6" />
-        <Link href="/account">
-          <img
+        <Link href="/account" className="relative w-10 h-10">
+          <Image
+            width={720}
+            height={720}
             src="https://rb.gy/g1pwyx"
-            alt=""
-            className="rounded cursor-pointer"
+            alt="access"
+            className="rounded cursor-pointer absolute bg-cover"
           />
         </Link>
       </div>

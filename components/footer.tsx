@@ -40,9 +40,8 @@ const footerLinks = [
   {
     title: "Developers",
     links: [
-      { title: "API", href: "#" },
-      { title: "Status", href: "#" },
-      { title: "GitHub", href: "#" },
+      { title: "Status", href: "https://www.alirezasoltanian.ir/" },
+      { title: "GitHub", href: "https://github.com/Alirezas7ss" },
     ],
   },
 ];
@@ -53,7 +52,7 @@ export const Footer = () => (
       <div>
         <div className="flex h-full flex-row justify-between lg:flex-col">
           <div className="flex items-center text-grey">
-            <Logo className="mr-4 h-4 w-4" /> Linear - Designed worldwide
+            <Logo className="mr-4 h-4 w-4" /> Alirezas7ss - Designed worldwide
           </div>
           <div className="mt-auto flex space-x-4 text-grey">
             <TwitterIcon />
@@ -72,7 +71,7 @@ export const Footer = () => (
             <ul>
               {column.links.map((link) => (
                 <li key={link.href} className="[&_a]:last:mb-0">
-                  <Link className="my-12 block text-grey" href={link.href}>
+                  <Link className="my-4 block text-grey" href={link.href}>
                     {link.title}
                   </Link>
                 </li>

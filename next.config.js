@@ -10,6 +10,11 @@ const nextConfig = {
         hostname: "source.unsplash.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "rb.gy",
+        port: "",
+      },
     ],
   },
 }
